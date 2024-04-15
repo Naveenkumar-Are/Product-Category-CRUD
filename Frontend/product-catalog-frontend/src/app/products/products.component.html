@@ -1,0 +1,48 @@
+<div class="container">
+  <h2>Product List</h2>
+  <button class="btn btn-primary mb-3" (click)="showCreateForm()">Create Product</button>
+  <!-- Ensure the button calls showCreateForm() -->
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.price }}</td>
+        <td>
+          <button class="btn btn-info" (click)="editProduct(product)">Edit</button>
+          <button class="btn btn-danger" (click)="deleteProduct(product.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Adjust the visibility and method names here too -->
+<div *ngIf="showForm">
+  <h3>{{ editing ? 'Edit Product' : 'Create Product' }}</h3>
+  <form (ngSubmit)="submitForm()">
+    <div class="mb-3">
+      <label for="productName" class="form-label">Name</label>
+      <input type="text" class="form-control" id="productName" [(ngModel)]="productForm.name" name="name" required>
+    </div>
+    <div class="mb-3">
+      <label for="productDescription" class="form-label">Description</label>
+      <input type="text" class="form-control" id="productDescription" [(ngModel)]="productForm.description" name="description" required>
+    </div>
+    <div class="mb-3">
+      <label for="productPrice" the class="form-label">Price</label>
+      <input type="number" class="form-control" id="productPrice" [(ngModel)]="productForm.price" name="price" required>
+    </div>
+    <button type="submit" class="btn btn-success">{{ editing ? 'Update' : 'Add' }}</button>
+    <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+  </form>
+</div>
